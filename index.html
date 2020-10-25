@@ -1,0 +1,548 @@
+<html style="background-color:green;">
+<head>
+<h1 id="hone" style="text-align:center;font-family:Cursive;">
+Roulette
+</h1>
+<script>
+var fiveBets=[0,0,0,0,0];
+var potPot=[0,0,0,0,0];
+var pBets=0;
+var count=0;
+var randoN=Math.floor(Math.random()*37+1);
+var streamline=0;
+var pcChips=100000;
+function chipInitial()
+{
+document.getElementById("player").innerHTML="YOUR chips: "+pcChips;
+if(pcChips==0)
+{
+pcChips=1500;
+}
+}
+function visibility()
+{
+for(i=0;i<3;i++)
+{
+document.getElementsByTagName("div")[i].removeAttribute("hidden");
+var v=document.getElementById("restart");
+var r=document.createAttribute("hidden");
+v.setAttributeNode(r);
+}
+var hThreeH=document.getElementById("spinner");
+var b=document.createAttribute("hidden");
+hThreeH.setAttributeNode(b);
+for(j=0;j<5;j++)
+{
+potPot[j]=0;
+fiveBets[j]=0;
+count=0;
+document.getElementsByTagName("p")[j].innerHTML="";
+}
+}
+function randoGen()
+{
+randoN=Math.floor(Math.random()*36+1);
+callbacc();
+count=count+1;
+if(count==500)
+{
+clearInterval(streamline);
+document.getElementById("restart").removeAttribute("hidden");
+for(i=0;i<5;i++)
+{
+if(randoN==fiveBets[i] && fiveBets[i] < 37)
+{
+pcChips=pcChips+(potPot[i]*35);
+}
+if(randoN!=fiveBets[i] && fiveBets[i] < 37)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==62 && randoN%2==0)
+{
+pcChips=pcChips+potPot[i];
+}
+if(fiveBets[i]==62 && randoN%2!=0)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==63 && randoN%2!=0)
+{
+pcChips=pcChips+potPot[i];
+}
+if(fiveBets[i]==63 && randoN%2==0)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==66 && randoN>0 && randoN<19)
+{
+pcChips=pcChips+potPot[i];
+}
+if(fiveBets[i]==66 && randoN==0 || randoN>18)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==67 && randoN>18)//WHAT IN THE FUCK IS WRONG HERE???
+{
+pcChips=pcChips+potPot[i];
+}
+if(fiveBets[i]==67 && randoN<19)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==70 && randoN>0 && randoN<13)
+{
+pcChips=pcChips+(potPot[i]*2);
+}
+if(fiveBets[i]==70 && randoN>12)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==71 && randoN>12 && randoN < 25)
+{
+pcChips=pcChips+(potPot[i]*2);
+}
+if(fiveBets[i]==71 && randoN<13 || randoN>24)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==72 && randoN>24)
+{
+pcChips=pcChips+(potPot[i]*2);
+}
+if(fiveBets[i]==72 && randoN<25)
+{
+pcChips=pcChips-potPot[i];
+}
+if(fiveBets[i]==53)
+{
+    if(randoN==1||randoN==4||randoN==7||randoN==10||randoN==13||randoN==16||randoN==19||randoN==22||randoN==25||randoN==28||randoN==31||randoN==34)
+    {
+        pcChips=pcChips+(potPot[i]*2);
+    }
+    else
+    {
+        pcChips=pcChips-potPot[i];
+    }
+}
+if(fiveBets[i]==54)
+{
+    if(randoN==2||randoN==5||randoN==8||randoN==11||randoN==14||randoN==17||randoN==20||randoN==23||randoN==26||randoN==29||randoN==32||randoN==35)
+    {
+        pcChips=pcChips+(potPot[i]*2);
+    }
+    else
+    {
+        pcChips=pcChips-potPot[i];
+    }
+}
+if(fiveBets[i]==55)
+{
+    if(randoN==3||randoN==6||randoN==9||randoN==12||randoN==15||randoN==18||randoN==21||randoN==24||randoN==27||randoN==30||randoN==33||randoN==36)
+    {
+        pcChips=pcChips+(potPot[i]*2);
+    }
+    else
+    {
+        pcChips=pcChips-potPot[i];
+    }
+}
+if(fiveBets[i]==58)
+{
+    if(randoN%2!=0 && randoN<10 || randoN%2==0 && randoN<19 && randoN>10 || randoN>=19 && randoN%2!=0 && randoN<29 || randoN>=30 && randoN%2==0)
+    {
+       pcChips=pcChips+potPot[i];
+    }
+    else
+    {
+        pcChips=pcChips-potPot[i];
+    }
+}
+if(fiveBets[i]==59)
+{
+    if(randoN%2==0 && randoN<10 || randoN%2!=0 && randoN<19 && randoN>10 || randoN>=19 && randoN%2==0 && randoN<29 || randoN>=30 && randoN%2!=0)
+    {
+       pcChips=pcChips+potPot[i];
+    }
+    else
+    {
+        pcChips=pcChips-potPot[i];
+    }
+}
+}
+chipInitial();
+}
+}
+function callbacc()
+{
+document.getElementById("spinner").innerHTML=randoN;
+}
+function randoStyle()
+{
+spinner.style.color=
+spinner.style.color==
+"black"?"#990000" : "black";
+}
+function onSpin()
+{
+for(i=0;i<3;i++)
+{
+var game=document.getElementsByTagName("div")[i];
+var hider=document.createAttribute("hidden");
+game.setAttributeNode(hider);
+document.getElementById("spinner").removeAttribute("hidden");
+}
+spinner.innerHTML=setInterval(randoStyle,370);
+streamline=setInterval(randoGen,20);
+}
+function placinBets()
+{
+var keyDivTag=document.getElementById("clickableObjects");
+for(i=0,len=keyDivTag.children.length;i<len;i++)
+{
+(function(index){
+keyDivTag.children[i].onclick=function(){var answer=parseInt(prompt("Place your bet! (No limits at this casino! (if one could call it that....)). Maximum of five bets per spin."),10);
+potPot[pBets]=answer;
+if(index==0)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index);
+fiveBets[pBets]=index;
+}
+if(index>2 && index < 6)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-2);
+fiveBets[pBets]=index-2;
+}
+if(index>6 && index < 10)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-3);
+fiveBets[pBets]=index-3;
+}
+if(index>10 && index < 14)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-4);
+fiveBets[pBets]=index-4;
+}
+if(index>14 && index < 18)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-5);
+fiveBets[pBets]=index-5;
+}
+if(index>18 && index < 23)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-7);
+fiveBets[pBets]=index-7;
+}
+if(index>23 && index < 27)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-8);
+fiveBets[pBets]=index-8;
+}
+if(index>27 && index < 31)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-9);
+fiveBets[pBets]=index-9;
+}
+if(index>31 && index < 35)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-10);
+fiveBets[pBets]=index-10;
+}
+if(index>35 && index < 40)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-12);
+fiveBets[pBets]=index-12;
+}
+if(index>40 && index < 44)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-13);
+fiveBets[pBets]=index-13;
+}
+if(index>44 && index < 48)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-14);
+fiveBets[pBets]=index-14;
+}
+if(index>48 && index < 52)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on "+(index-15);
+fiveBets[pBets]=index-15;
+}
+if(index>52 && index < 56)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 2 to 1";
+fiveBets[pBets]=index;
+}
+if(index==58)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on Red";
+fiveBets[pBets]=58;
+}
+if(index==59)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on Black";
+fiveBets[pBets]=59;
+}
+if(index==62)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on Even";
+fiveBets[pBets]=62;
+}
+if(index==63)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on Odd";
+fiveBets[pBets]=63;
+}
+if(index==66)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 1-18";
+fiveBets[pBets]=66;
+}
+if(index==67)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 19-36";
+fiveBets[pBets]=67;
+}
+if(index==2)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 1st Dozen";
+fiveBets[pBets]=70;
+}
+if(index==19)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 2nd Dozen";
+fiveBets[pBets]=71;
+}
+if(index==36)
+{
+document.getElementsByTagName("p")[pBets].innerHTML=answer+" placed on 3rd Dozen";
+fiveBets[pBets]=72;
+}
+pBets=pBets+1;
+if(pBets>4)
+pBets=0;
+}
+})(i);
+}
+}
+function titleSwap()
+{
+hone.style.color=
+hone.style.color==
+"black" ? "#990000" : "black";
+}
+setInterval(titleSwap,400);
+function setColorz()
+{
+for(j=0;j<46;j++)
+{
+document.getElementsByTagName("button")[j].onclick=function(){placinBets();};
+}
+for(i=1;i<37;i++)
+{
+if(i%2!=0 && i<10 || i%2==0 && i<19 && i>10 || i>=19 && i%2!=0 && i<29 || i>=30 && i%2==0)
+document.getElementsByTagName("button")[i].style.color="red";
+}
+for(k=0;k<3;k++)
+document.getElementsByTagName("h2")[k].style.color="white";
+}
+</script>
+</head>
+<body id="marked" onload="setColorz(),chipInitial();">
+<h3 id="spinner" hidden style="text-align:center;">
+</h3>
+<div align="right" style="color:white;">
+<p>
+</p>
+<p>
+</p>
+<p>
+</p>
+<p>
+</p>
+<p>
+</p>
+</div>
+<div id="clickableObjects" align="center">
+<button>
+0
+</button>
+<br>
+<h2 onclick="placinBets()">
+1st Dozen
+</h2>
+<button>
+1
+</button>
+<button>
+2
+</button>
+<button>
+3
+</button>
+<br>
+<button>
+4
+</button>
+<button>
+5
+</button>
+<button>
+6
+</button>
+<br>
+<button>
+7
+</button>
+<button>
+8
+</button>
+<button>
+9
+</button>
+<br>
+<button>
+10
+</button>
+<button>
+11
+</button>
+<button>
+12
+</button>
+<br>
+<h2 onclick="placinBets()">
+2nd Dozen
+</h2>
+<button>
+13
+</button>
+<button>
+14
+</button>
+<button>
+15
+</button>
+<br>
+<button>
+16
+</button>
+<button>
+17
+</button>
+<button>
+18
+</button>
+<br>
+<button>
+19
+</button>
+<button>
+20
+</button>
+<button>
+21
+</button>
+<br>
+<button>
+22
+</button>
+<button>
+23
+</button>
+<button>
+24
+</button>
+<br>
+<h2 onclick="placinBets()">
+3rd Dozen
+</h2>
+<button>
+25
+</button>
+<button>
+26
+</button>
+<button>
+27
+</button>
+<br>
+<button>
+28
+</button>
+<button>
+29
+</button>
+<button>
+30
+</button>
+<br>
+<button>
+31
+</button>
+<button>
+32
+</button>
+<button>
+33
+</button>
+<br>
+<button>
+34
+</button>
+<button>
+35
+</button>
+<button>
+36
+</button>
+<br>
+<button>
+2 to 1
+</button>
+<button>
+2 to 1
+</button>
+<button>
+2 to 1
+</button>
+<br>
+<br>
+<button style="background-color:red;WIDTH:100px;HEIGHT:20px;">
+</button>
+<button style="background-color:black;WIDTH:100px;HEIGHT:20px;">
+</button>
+<br>
+<br>
+<button>
+EVEN
+</button>
+<button>
+ODD
+</button>
+<br>
+<br>
+<button>
+1 to 18
+</button>
+<button>
+19-36
+</button>
+</div>
+<b>
+<div align="center">
+<h5 id="player" style="color:white;text-align:center;">
+YOUR chips: 
+</h5>
+<button onclick="onSpin()">
+SPIN!
+</button>
+</div>
+<div align="center">
+<button hidden style="background-color:#cccc00" id="restart" onclick="visibility()">
+SPIN AGAIN!!
+</button>
+</div>
+</b>
+</body>
+</html>
